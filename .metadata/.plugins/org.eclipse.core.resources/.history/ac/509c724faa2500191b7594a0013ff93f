@@ -1,0 +1,91 @@
+object LearningScala2 {
+  // Flow control
+  
+  // If / else syntax
+  if (1 > 3) println("Impossible!") else println("The world makes sense.")
+                                                  //> The world makes sense.
+  
+  if (1 > 3) {
+  	println("Impossible!")
+  } else {
+  	println("The world makes sense.")
+  }                                               //> The world makes sense.
+  
+  // Matching - like switch in other languages:
+  val number = 4                                  //> number  : Int = 4
+  number match {
+  	case 1 => println("One")
+  	case 2 => println("Two")
+  	case 3 => println("Three")
+  	case _ => println("Something else")
+ 	}                                         //> Something else
+ 	
+ 	// For loops
+ 	for (x <- 1 to 4) {
+ 		val squared = x * x
+ 		println(squared)
+ 	}                                         //> 1
+                                                  //| 4
+                                                  //| 9
+                                                  //| 16
+                                                  
+  // While loops
+  var x = 10                                      //> x  : Int = 10
+  while (x >= 0) {
+  	println(x)
+  	x -= 1
+  }                                               //> 10
+                                                  //| 9
+                                                  //| 8
+                                                  //| 7
+                                                  //| 6
+                                                  //| 5
+                                                  //| 4
+                                                  //| 3
+                                                  //| 2
+                                                  //| 1
+                                                  //| 0
+                                                  
+  x = 0
+  do { println(x); x+=1 } while (x <= 10)         //> 0
+                                                  //| 1
+                                                  //| 2
+                                                  //| 3
+                                                  //| 4
+                                                  //| 5
+                                                  //| 6
+                                                  //| 7
+                                                  //| 8
+                                                  //| 9
+                                                  //| 10
+                                                  
+   // Expressions
+   // "Returns" the final value in a block automatically
+   
+   {val x = 10; x + 20}                           //> res0: Int = 30
+                                                
+	 println({val x = 10; x + 20})            //> 30
+	 
+	 // EXERCISE
+	 // Write some code that prints out the first 10 values of the Fibonacci sequence.
+	 // This is the sequence where every number is the sum of the two numbers before it.
+	 // So, the result should be 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
+	 var baseNum: Int = 0                     //> baseNum  : Int = 0
+	 for(x <- 0 to 10) {
+	 		//println(s"the current index $x")
+		  var fib = baseNum + x
+	 		// store current x so that next iteration we can use it to get the sum
+		  if (x == 0) baseNum = x else baseNum = x - 1
+			println(s"the current fib # $fib")
+	 }                                        //> the current fib # 0
+                                                  //| the current fib # 1
+                                                  //| the current fib # 2
+                                                  //| the current fib # 4
+                                                  //| the current fib # 6
+                                                  //| the current fib # 8
+                                                  //| the current fib # 10
+                                                  //| the current fib # 12
+                                                  //| the current fib # 14
+                                                  //| the current fib # 16
+                                                  //| the current fib # 18
+}

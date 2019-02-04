@@ -1,0 +1,4 @@
+INDEX VERSION 1.130+/home/mathew/Documents/sparkScala/.metadata/.plugins/org.eclipse.jdt.core
+3975862671.index
+1462943117.index
+3353234052.index
