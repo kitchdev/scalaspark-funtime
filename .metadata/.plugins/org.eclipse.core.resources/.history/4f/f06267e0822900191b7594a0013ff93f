@@ -1,0 +1,31 @@
+package com.sundogsoftware.spark
+
+import org.apache.spark._
+import org.apache.spark.SparkContext._
+import org.apache.log4j._
+
+object PurchaseByCustomer {
+  
+  def parseLine(line:String)= {
+    val fields = line.split(",")
+    val customerId = fields(0).toInt
+    val amountSpent = fields(2).toFloat
+   
+    (customerId, amountSpent)
+  }
+  
+  def main(args: Array[String]) {
+    
+    Logger.getLogger("org").setLevel(Level.ERROR)
+    
+    val sc = new SparkContext("local[*]", "PurchaseByCustomer")
+    
+    val input = sc.textFile("../customer-orders.csv")
+    
+    val custTuples = input.map(x => parseLine(x))
+    val results = custTuples.collect()
+    // val reducedTuples = custTuples.reduceByKey((x,y) => (x._1 + y._1, x._2 + y._2))
+    println(results)
+    
+  }
+}

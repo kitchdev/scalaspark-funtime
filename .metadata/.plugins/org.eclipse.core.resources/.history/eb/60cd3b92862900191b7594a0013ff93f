@@ -1,0 +1,33 @@
+package com.sundogsoftware.spark
+
+import org.apache.spark._
+import org.apache.spark.SparkContext._
+import org.apache.log4j._
+import scala.math.BigDecimal
+
+object PurchaseByCustomer {
+  
+  def parseLine(line:String)= {
+    val fields = line.split(",")
+    val customerId = fields(0).toInt
+    val amountSpent = fields(2).toDouble
+   
+    (customerId, amountSpent)
+  }
+  
+  def main(args: Array[String]) {
+    
+    Logger.getLogger("org").setLevel(Level.ERROR)
+    
+    val sc = new SparkContext("local[*]", "PurchaseByCustomer")
+    
+    val input = sc.textFile("../customer-orders.csv")
+    
+    val custTuples = input.map(parseLine)
+    val reducedTuples = custTuples.reduceByKey((x,y) => BigDecimal(x + y).setScale(2, BigDecimal.RoundingMode.UP).toDouble).sortByKey()
+    val results = reducedTuples.collect()
+
+    results.foreach(println)
+    
+  }
+}
