@@ -1,4 +1,4 @@
-package com.sundogsoftware.spark
+package io.anagraph.spark
 
 import org.apache.spark._
 import org.apache.spark.SparkContext._
@@ -25,7 +25,21 @@ object PurchaseByCustomer {
     val custTuples = input.map(parseLine)
     val reducedTuples = custTuples.reduceByKey((x,y) => x + y).sortByKey()
     val results = reducedTuples.collect()
+    
+    
+    val locale = new java.util.Locale("en", "CA")
+    val formatter = java.text.NumberFormat.getCurrencyInstance
 
-    results.foreach(println)
+    val formatRes: ((Int, Float)) => ((Int, String)) = {
+        case (a,b) => ((a, formatter.format(b)))
+    }
+    
+    val resultsFormatted = results.map(formatRes)
+
+
+    resultsFormatted.foreach(println)
+    
+    sc.stop()
+    
   }
 }
