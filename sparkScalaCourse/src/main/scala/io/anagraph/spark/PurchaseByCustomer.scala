@@ -28,7 +28,7 @@ object PurchaseByCustomer {
     
     
     val locale = new java.util.Locale("en", "CA")
-    val formatter = java.text.NumberFormat.getCurrencyInstance
+    val formatter = java.text.NumberFormat.getCurrencyInstance(locale)
 
     val formatRes: ((Int, Float)) => ((Int, String)) = {
         case (a,b) => ((a, formatter.format(b)))
